@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <script src="script.js" defer></script>
+   <title>Weather station</title>
+</head>
+<body>
+   <!-- Todo: form entering city of choice, with button to submit -->
+   <!-- todo: display current day -->
+   <!-- todo: display up to 5 days (display as grid to be responsive)-->
+   <section class="top-banner">
+      <div class="container">
+         <h1>So how's the weather?</h1>
+         <form action="#">
+            <label for="city">What city you want to know the weather of?</label>
+            <input type="text" name="city" id="city" placeholder="Search for a city (ex. Ghent,BE)">
+            <button type="submit">Search forecast</button>
+            <span class="msg"></span>
+         </form>
+      </div>
+   </section>
+   <section class= "ajax-section">
+      <div class="container">
+         <ul class="cities"></ul>
+         <!-- 
+            <li class="city">
+            <h2 class="city-name" data-name="...">
+               <span>...</span>
+               <sup>...</sup>
+            </h2>
+            <span class="city-temp">...<sup>°C</sup></span>
+            <figure>
+               <img class="city-icon" src="..." alt="...">
+               <figcaption>...</figcaption>
+            </figure>
+            </li>
+          -->
+      </div>
+   </section>
+</body>
+</html>
