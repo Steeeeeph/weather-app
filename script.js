@@ -1,8 +1,12 @@
 "use strict"; 
 
 const city = document.querySelector("#city");
+const submit = document.getElementById("run");
+const cards = document.querySelector(".cards");
+let temperature;
+let weather;
 
-city.addEventListener('click', (event) => {
+submit.addEventListener('click', (event) => {
    event.preventDefault();
 
    // TODO Get Data through API (One day forecast)
@@ -16,13 +20,26 @@ city.addEventListener('click', (event) => {
          })
          .then(collect => {
             console.log(collect);
-            let temperature = collect.main.temp + '°C';
-            let weather = collect.weather[0].main;
+            temperature = collect.main.temp + '°C';
+            weather = collect.weather[0].main;
+            return temperature, weather;
          });
-         console.log(urlWeather);
          // TODO if rejected: display what's wrong
-      // TODO collect data in variables
 
+         console.log(urlWeather);
+         
+      // TODO display one day in HTML
+      const displayCard = () => {
+         let card;
+         card = '<div class="card">';
+         card += '<h1>'+ cityValue + '</h1>';
+         card += '<p>' + temperature + '</p>';
+         card += '<p>' + weather + '</p>';
+         card += '</div>';
+         cards.innerHTML = card;
+
+      }
+      displayCard();
    // TODO Overview for 5 days
 
    // TODO Get data to be visible in HTML > cards container
