@@ -5,6 +5,26 @@ const submit = document.getElementById("run");
 const cards = document.querySelector(".cards");
 let temperature;
 let weather;
+let day;
+let date = new Date();
+let todayNumber = date.getDay();
+
+const days = [
+   'Sunday',
+   'Monday',
+   'Tuesday',
+   'Wednesday',
+   'Thursday',
+   'Friday',
+   'Saturday'
+];
+let today = () => {
+   days[todayNumber];
+   if (days[todayNumber]) {
+      day = 'Today';
+      return day;
+   }
+} 
 
 submit.addEventListener('click', (event) => {
    event.preventDefault();
@@ -33,11 +53,11 @@ submit.addEventListener('click', (event) => {
          let card;
          card = '<div class="card">';
          card += '<h1>'+ cityValue + '</h1>';
+         card += '<h2>'+ today() + '</h2>';
          card += '<p>' + temperature + '</p>';
          card += '<p>' + weather + '</p>';
          card += '</div>';
          cards.innerHTML = card;
-
       }
       displayCard();
    // TODO Overview for 5 days
