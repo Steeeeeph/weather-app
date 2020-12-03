@@ -8,18 +8,18 @@ city.addEventListener('click', (event) => {
    // TODO Get Data through API (One day forecast)
       const cityValue = city.value;
       const apiKeyWeather = '12ce9e55f98edc446d7b88a0a9db3845';
-      const urlWeather = `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&appid=${apiKeyWeather}` 
+      const urlWeather = `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&appid=${apiKeyWeather}&units=metric` 
       // TODO Make a promise statement 
-         // TODO fetch data from url
       fetch(urlWeather)
-      // TODO convert results in json format
          .then(response => {
             return response.json();
          })
-         // TODO then get the wanted data from the object list
          .then(collect => {
             console.log(collect);
-         })
+            let temperature = collect.main.temp + '°C';
+            let weather = collect.weather[0].main;
+         });
+         console.log(urlWeather);
          // TODO if rejected: display what's wrong
       // TODO collect data in variables
 
