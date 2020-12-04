@@ -12,19 +12,31 @@ form {
    display: flex;
    justify-content: center;
 }
-.cards {
+.container {
+   margin-bottom: 30px;
+}
+.card-container {
    display: grid;
    grid-template-columns: repeat(5, 1fr);
-   grid-template-rows: 400px;
+   grid-template-rows: auto;
    grid-gap: 5px;
 }
 .card {
    display: grid;
+   grid-column: 1, -1;
    background-color: white;
    border-radius: 40px;
 }
-.card h2, p {
+.card h2, h3, p {
    font-family: helvetica, arial;
    text-align: center;
 
+}
+/* .card p ::first-letter {
+   text-transform: capitalize;
+} */
+img {
+   display: block;
+   margin: auto;
+   width: 60%;
 }
