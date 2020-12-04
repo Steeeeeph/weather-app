@@ -6,6 +6,7 @@ body {
    font-weight: 300;
    font-size: 50px;
    text-align: center;
+   color: rgb(1, 181, 252);
 }
 form {
    display: flex;
