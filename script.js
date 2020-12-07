@@ -4,9 +4,10 @@ const city = document.querySelector("#city");
 const submit = document.getElementById("run");
 const cardsPosition = document.querySelector(".cards");
 const title = document.querySelector("span");
-let temperature;
-let weather;
-let weatherIcon;
+let temperature = [];
+let weather = [];
+let weatherIcon = [];
+let countryValue;
 let latitude;
 let longitude;
 
@@ -63,20 +64,23 @@ submit.addEventListener('click', (event) => {
       const apiKeyWeather = '12ce9e55f98edc446d7b88a0a9db3845';
       const urlWeather = `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&appid=${apiKeyWeather}&units=metric`;
       title.innerText = `in ${cityValue}`; // Adding city to title
-   
+ 
       fetch(urlWeather)
          .then(response => {
             return response.json();
          })
          .then(collect => {
             console.log(collect);
-            temperature = collect.main.temp + '°C';
-            weather = collect.weather[0].description;
-            weatherIcon = collect.weather[0].icon;
+            temperature.push(collect.main.temp + '°C');
+            weather.push(collect.weather[0].description);
+            weatherIcon.push(collect.weather[0].icon);
             latitude = collect.coord.lat;
             longitude = collect.coord.lon;
             return temperature, weather, weatherIcon, latitude, longitude;
          });
+         console.log(urlWeather);
+         console.log(temperature);
+
          // TODO if rejected: display what's wrong
 
       // TODO display one day in HTML
@@ -95,17 +99,24 @@ submit.addEventListener('click', (event) => {
 
    // TODO Overview for 5 days
 
-
-      const urlWeatherDays = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${apiKeyWeather}&units=metric`
+      // TODO get data per day
+      const urlWeatherDays = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts&appid=${apiKeyWeather}&units=metric`
+      // const urlWeatherDays = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${apiKeyWeather}&units=metric`
       fetch(urlWeatherDays)
          .then(response => {
             return response.json();
          })
          .then(collect => {
             console.log(collect);
-            
+            for (let i = 0; i < 5; i++) {
+               temperature.push(collect.daily[i].temp.day + '°C');
+               weather.push(collect.daily[i].weather[0].description);
+               weatherIcon.push(collect.daily[i].weather[0].icon);
+               return temperature, weather, weatherIcon;
+            }
          })
       console.log(urlWeatherDays);
+      console.log(temperature);
 
    // TODO Get data to be visible in HTML > cards container
          // TODO display multiple cards
@@ -113,7 +124,7 @@ submit.addEventListener('click', (event) => {
          const displayCards = () => {
             let cards;
             cards = '<div class= "card-container">'
-                  for(let i = 0; i < 5; i++){
+                  for(let i = 0; i < 4; i++){
                   cards += `<div class=" card card${i}">`;
                   // card += '<h2>'+ dayName() + '</h2>';
                   cards += `<h3>${dayNumberToday} ${months[month]} ${year}</h3>`
@@ -127,6 +138,21 @@ submit.addEventListener('click', (event) => {
             cardsPosition.innerHTML = cards;
          }
          displayCards();
+         /*
+            const target = document.getElementById('forecast');
+            const html = (`
+               <div class="card">
+                     <div class="card-body">
+                        <p class="title">${aeris.utils.dates.format(date, 'dddd')}</p>
+                        <p><img class="icon" src="${icon}"></p>
+                        <p class="wx">${weather}</p>
+                        <p class="temps"><span>High:</span>${maxTempF} <span>Low:</span>${minTempF}</p>
+                     </div>
+               </div>
+            `);
+
+            target.insertAdjacentHTML('afterbegin', html);
+            */
          // TODO display the different dates per cards
          /*
          for (let day = 0; day < 5; day++){
