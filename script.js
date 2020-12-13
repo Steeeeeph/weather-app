@@ -1,6 +1,9 @@
 "use strict";
 
-// TODO get value form
+// get value form
+window.onload = function (){
+   document.querySelector("#weather").style.visibility ='hidden';
+}
 const submit = document.getElementById("run");
 const cityInput = document.getElementById("city");
 let logos = [
@@ -44,17 +47,29 @@ let maxTemps = [
    document.getElementById("max-temp5"),
    document.getElementById("max-temp6")
 ]
+const dates = [
+   document.getElementById("date1"),
+   document.getElementById("date2"),
+   document.getElementById("date3"),
+   document.getElementById("date4"),
+   document.getElementById("date5"),
+   document.getElementById("date6"),
+]
 
 let city;
 let title = document.getElementById("title");
 
 submit.addEventListener("click", (event) => {
    event.preventDefault();
-   city = cityInput.value;
+   document.querySelector("#weather").style.visibility ='visible';
+
+   city = cityInput.value.split(' ').join('');
    console.log(city);
    title.innerText = `in ${city}`; // Adding city to title
 
    getWeather(city); // Calling function
+   getDay(days,day);
+
 });
 
 // fetch the data from api
@@ -105,12 +120,12 @@ function displayForecast (data) {
       weatherIcon5,
       weatherIcon6
    ];
-   let minTemperature1 = Math.floor(data.data[0].low_temp)+ '°C';
-   let minTemperature2 = Math.floor(data.data[1].low_temp)+ '°C';
-   let minTemperature3 = Math.floor(data.data[2].low_temp)+ '°C';
-   let minTemperature4 = Math.floor(data.data[3].low_temp)+ '°C';
-   let minTemperature5 = Math.floor(data.data[4].low_temp)+ '°C';
-   let minTemperature6 = Math.floor(data.data[5].low_temp)+ '°C';
+   let minTemperature1 = '&#8711;' + Math.floor(data.data[0].low_temp)+ '°C';
+   let minTemperature2 = '&#8711;' + Math.floor(data.data[1].low_temp)+ '°C';
+   let minTemperature3 = '&#8711;' + Math.floor(data.data[2].low_temp)+ '°C';
+   let minTemperature4 = '&#8711;' + Math.floor(data.data[3].low_temp)+ '°C';
+   let minTemperature5 = '&#8711;' + Math.floor(data.data[4].low_temp)+ '°C';
+   let minTemperature6 = '&#8711;' + Math.floor(data.data[5].low_temp)+ '°C';
    let minTemperatures = [
       minTemperature1,
       minTemperature2,
@@ -119,12 +134,12 @@ function displayForecast (data) {
       minTemperature5,
       minTemperature6
    ];
-   let maxTemperature1 = Math.floor(data.data[0].max_temp)+ '°C';
-   let maxTemperature2 = Math.floor(data.data[1].max_temp)+ '°C';
-   let maxTemperature3 = Math.floor(data.data[2].max_temp)+ '°C';
-   let maxTemperature4 = Math.floor(data.data[3].max_temp)+ '°C';
-   let maxTemperature5 = Math.floor(data.data[4].max_temp)+ '°C';
-   let maxTemperature6 = Math.floor(data.data[5].max_temp)+ '°C';
+   let maxTemperature1 = '&#8710;' + Math.floor(data.data[0].max_temp)+ '°C';
+   let maxTemperature2 = '&#8710;' + Math.floor(data.data[1].max_temp)+ '°C';
+   let maxTemperature3 = '&#8710;' + Math.floor(data.data[2].max_temp)+ '°C';
+   let maxTemperature4 = '&#8710;' + Math.floor(data.data[3].max_temp)+ '°C';
+   let maxTemperature5 = '&#8710;' + Math.floor(data.data[4].max_temp)+ '°C';
+   let maxTemperature6 = '&#8710;' + Math.floor(data.data[5].max_temp)+ '°C';
    let maxTemperatures = [
       maxTemperature1,
       maxTemperature2,
@@ -160,6 +175,75 @@ function displayForecast (data) {
    }
 }
 // TODO get dates
+/*
+function getDates (day, dayNumber, month, year) {
+   // const days = [
+   //    'Sunday',
+   //    'Monday',
+   //    'Tuesday',
+   //    'Wednesday',
+   //    'Thursday',
+   //    'Friday',
+   //    'Saturday'
+   // ];
+   const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+   ];
+   // const dates = [
+   //    document.getElementById("date1"),
+   //    document.getElementById("date2"),
+   //    document.getElementById("date3"),
+   //    document.getElementById("date4"),
+   //    document.getElementById("date5"),
+   //    document.getElementById("date6"),
+   // ]
+   const date = new Date();
+   day = date.getDay();
+   dayNumber = Number(date.getDate());
+   month = date.getMonth();
+   year = date.getFullYear();
+   console.log(days[day],dayNumber, months[month],year);
+   for (let i= 0; i<6 ; i++){
+      if (days[day+i] == 'Saturday'){ 
+         i=0;
+         i++;
+      } else if (months[month+i] == 'December'){
+         i=0;
+         i++;
+      }
+   }
+   dates[i].innerHTML = `${days[day+i]} ${dayNumber+i} ${months[month+i]} ${year}`;
 
+}
 
+getDates()
+*/
+function getDay(days,day) {
+   days = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday'
+   ];
+   const date = new Date();
+   day = date.getDay();
+   console.log(days[day]);
+   for (let i= 0; i< days.length ; i++){
+      dates[i].innerHTML = `${days[day+i]}`;
 
+   }
+}
