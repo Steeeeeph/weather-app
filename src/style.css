@@ -15,7 +15,7 @@ header {
    border: 2px solid;
 
    grid-row: 1 ;
-   grid-column: 1 / -1;  
+   grid-column: 1 / -1;
 }
 header h1 {
 
@@ -34,7 +34,7 @@ form {
 
    grid-row: 2 ;
    grid-column: 1 / -1;
-   text-align: center   
+   text-align: center;
 }
 #weather-forecast {
    border: 2px solid;

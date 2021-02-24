@@ -3,9 +3,15 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <script src="script.js" defer></script>
-   <link rel="stylesheet" href="style.css">
+   <script src="./src/script.js" defer></script>
+   <link rel="stylesheet" href="./src/style.css">
    <title>Weather app</title>
+
+   <!-- Places library Google -->
+   <script
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer>
+   </script>
+
 </head>
 <body>
    <div class="container">
@@ -18,7 +24,7 @@
       </header>
       <div id="weather">
          <div id="weather-today">
-            <h2>Today</h2><br> 
+            <h2>Today</h2><br>
             <h3 id="date1">Date</h3><br>
             <div class="weather">
                <img id="logo1" src="" alt="weather-icon">
@@ -26,12 +32,12 @@
             </div>
             <div class="temperatures">
                <h4 id="temperature1">Temperature</h4><br>
-               <h6> <span id="min-temp1">MinTemp</span> <span id="max-temp1">MaxTemp</span></h6>   
+               <h6> <span id="min-temp1">MinTemp</span> <span id="max-temp1">MaxTemp</span></h6>
             </div>
          </div>
          <div id="weather-forecast">
             <div class="day">
-               <h3 id="date2">Date 2</h3><br> 
+               <h3 id="date2">Date 2</h3><br>
                <div class="weather">
                   <img id="logo2" src="" alt="weather-icon">
                   <h4 id="description2">Weather description</h4><br>

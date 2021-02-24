@@ -1,0 +1,25 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "## \"Retrieving data by means of an API\"",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Steeeeeph/weather-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Steeeeeph/weather-app/issues"
+  },
+  "homepage": "https://github.com/Steeeeeph/weather-app#readme",
+  "keywords": [],
+  "devDependencies": {
+    "webpack": "^5.24.1",
+    "webpack-cli": "^4.5.0"
+  }
+}
