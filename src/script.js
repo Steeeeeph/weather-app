@@ -1,4 +1,5 @@
 "use strict";
+require("./style.css");
 
 // get value form
 window.onload = function (){
