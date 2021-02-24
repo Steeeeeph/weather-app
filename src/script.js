@@ -58,7 +58,10 @@ const dates = [
 ]
 
 let city;
-let title = document.getElementById("title");
+let title = document.getElementById("queriedCity");
+
+// TODO autocomplete google API
+
 
 submit.addEventListener("click", (event) => {
    event.preventDefault();
@@ -66,7 +69,7 @@ submit.addEventListener("click", (event) => {
 
    city = cityInput.value.split(' ').join('');
    console.log(city);
-   title.innerText = `in ${city}`; // Adding city to title
+   title.innerText = ` ${city}`; // Adding city to title
 
    getWeather(city); // Calling function
    getDay(days,day);

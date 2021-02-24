@@ -1,29 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <script src="./script.js" defer></script>
-   <link rel="stylesheet" href="./src/style.css">
-   <title>Weather app</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./script.js" async defer></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-   <!-- Places library Google -->
-   <script
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer>
-   </script>
+    <title>☁️ Weather App</title>
+       <!-- TODO Places library Google -->
+    <script async defer>
+        let autocomplete;
+        let googleApiKey = "AIzaSyB07Ap9NAvpsYBiqat5076lJ-55navWd8o";
+        
+        function initAutocomplete() {
+            autocomplete = new google.maps.places.Autocomplete(
+                document.getElementById('city'), {types:['(cities)']}
+            );
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB07Ap9NAvpsYBiqat5076lJ-55navWd8o&libraries=places&callback=initAutocomplete" async defer>
+    </script>
+
 
 </head>
 <body>
-   <div class="container">
-      <header>
-         <h1>How's the weather <span id="title"></span> ?</h1>
-         <form action="#">
-            <input type="text" name="city" id="city">
-            <input id="run" type="button" value="Get forecast">
-         </form>
-      </header>
-      <div id="weather">
-         <div id="weather-today">
+        <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+
+    <div class="container">
+        <header class="header">
+            <h1>How's the weather in <span id="queriedCity"></span>?</h1> <!-- TODO former id = title-->
+            <form action="#">
+                <input type="text" name="city" id="city"> <!-- TODO tutorial id = autocomplete-->
+                <input id="run" type="button" value="🔍">
+            </form>
+        </header>
+        <div class="card" id="weather">
             <h2>Today</h2><br>
             <h3 id="date1">Date</h3><br>
             <div class="weather">
@@ -34,65 +51,10 @@
                <h4 id="temperature1">Temperature</h4><br>
                <h6> <span id="min-temp1">MinTemp</span> <span id="max-temp1">MaxTemp</span></h6>
             </div>
-         </div>
-         <div id="weather-forecast">
-            <div class="day">
-               <h3 id="date2">Date 2</h3><br>
-               <div class="weather">
-                  <img id="logo2" src="" alt="weather-icon">
-                  <h4 id="description2">Weather description</h4><br>
-               </div>
-               <div class="temperatures">
-                  <h4 id="temperature2">Temperature</h4><br>
-                  <h6> <span id="min-temp2">MinTemp</span> <span id="max-temp2">MaxTemp</span></h6>   
-               </div>   
-            </div>
-            <div class="day">
-               <h3 id="date3">Date 3</h3><br>
-               <div class="weather">
-                  <img id="logo3" src="" alt="weather-icon">
-                  <h4 id="description3">Weather description</h4><br>
-               </div>
-               <div class="temperatures">
-                  <h4 id="temperature3">Temperature</h4><br>
-                  <h6> <span id="min-temp3">MinTemp</span> <span id="max-temp3">MaxTemp</span></h6>   
-               </div>   
-            </div>
-            <div class="day">
-               <h3 id="date4">Date 4</h3><br>
-               <div class="weather">
-                  <img id="logo4" src="" alt="weather-icon">
-                  <h4 id="description4">Weather description</h4><br>
-               </div>
-               <div class="temperatures">
-                  <h4 id="temperature4">Temperature</h4><br>
-                  <h6> <span id="min-temp4">MinTemp</span> <span id="max-temp4">MaxTemp</span></h6>   
-               </div>  
-            </div>
-            <div class="day">
-               <h3 id="date5">Date 5</h3><br>
-               <div class="weather">
-                  <img id="logo5" src="" alt="weather-icon">
-                  <h4 id="description5">Weather description</h4><br>
-               </div>
-               <div class="temperatures">
-                  <h4 id="temperature5">Temperature</h4><br>
-                  <h6> <span id="min-temp5">MinTemp</span> <span id="max-temp5">MaxTemp</span></h6>   
-               </div>   
-            </div>
-            <div class="day">
-               <h3 id="date6">Date 6</h3><br>
-               <div class="weather">
-                  <img id="logo6" src="" alt="weather-icon">
-                  <h4 id="description6">Weather description</h4><br>
-               </div>
-               <div class="temperatures">
-                  <h4 id="temperature6">Temperature</h4><br>
-                  <h6> <span id="min-temp6">MinTemp</span> <span id="max-temp6">MaxTemp</span></h6>   
-               </div>   
-            </div>
-         </div>
-      </div>
-   </div>
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
 </body>
 </html>
