@@ -1,11 +1,14 @@
 "use strict";
 // require("./style.css");
+import './style.scss';
+// import img from './file.png';
 
 const submit = document.getElementById("run");
 const cityInput = document.getElementById("city");
 let title = document.getElementById("queriedCity");
 const weather = document.getElementById('weather');
 const forecast = document.getElementById('forecast');
+const date = new Date();
 
 let city;
 const weatherDescriptions = [];
@@ -13,7 +16,7 @@ const weatherIcons = [];
 const minTemperatures = [];
 const maxTemperatures = [];
 const dayTemperatures = [];
-
+const datetimes = [];
 const daysOfWeek = [
    'Sunday',
    'Monday',
@@ -24,6 +27,7 @@ const daysOfWeek = [
    'Saturday'
 ];
 const days = [];
+const dayNumbers = [];
 const months = [
    'January',
    'February',
@@ -38,6 +42,10 @@ const months = [
    'November',
    'December'
 ];
+
+const icons = [
+   
+]
 
 submit.addEventListener("click", (event) => {
    event.preventDefault();
@@ -79,6 +87,7 @@ function displayForecast (data) {
    let j;
 
    for (i=0; i < 6; i++) {
+      datetimes.push(data.data[i].datetime);
       weatherDescriptions.push(data.data[i].weather.description);
       weatherIcons.push(data.data[i].weather.icon);
       minTemperatures.push('&#8711;' + Math.floor(data.data[i].low_temp)+ '°C');
@@ -94,68 +103,57 @@ function displayForecast (data) {
 }
 
 function todaysWeather(i) {
-   weather.innerHTML += `<div class="card" id="day ${i}">`;
-   weather.innerHTML += `<h3 id="date ${i}">${days[i]}</h3>`; //TODO day indication
+   // weather.innerHTML += `<div class="card" id="day ${i}">`;
+   weather.innerHTML += '<h3>Today</h3>';
+   weather.innerHTML += `<h3 id="date ${i}">${days[i]} ${datetimes[i]}</h3>`; //TODO day indication
    weather.innerHTML += `<img id="logo${i}" src="https://www.weatherbit.io/static/img/icons/${weatherIcons[i]}.png" alt="weather-icon">`;
    weather.innerHTML += `<h4 id="description ${i}">${weatherDescriptions[i]}</h4>`;
    weather.innerHTML += `<h4 id="temperature ${i}">${dayTemperatures[i]}</h4>`;
    weather.innerHTML += `<h6> <span id="min-temp ${i}">${minTemperatures[i]}</span> <span id="max-temp ${i}">${maxTemperatures[i]}</span></h6>`;
-   weather.innerHTML += '</div>';
+   // weather.innerHTML += '</div>';
 }
 
 function forecasting(j){
-   forecast.innerHTML += `<div class="card" id="day ${j}">`;
-   forecast.innerHTML += `<h3 id="date ${j}">${days[j]}</h3>`; //TODO day indication
-   forecast.innerHTML += `<img id="logo${j}" src="https://www.weatherbit.io/static/img/icons/${weatherIcons[j]}.png" alt="weather-icon">`;
-   forecast.innerHTML += `<h4 id="description ${j}">${weatherDescriptions[j]}</h4>`;
-   forecast.innerHTML += `<h4 id="temperature ${j}">${dayTemperatures[j]}</h4>`;
-   forecast.innerHTML += `<h6> <span id="min-temp ${j}">${minTemperatures[j]}</span> <span id="max-temp ${j}">${maxTemperatures[j]}</span></h6>`;
-   forecast.innerHTML += '</div>';
+   let cardDiv = document.createElement('div');
+   cardDiv.classList.add('card');
+   forecast.appendChild(cardDiv);
+   // forecast.innerHTML += `<div class="card" id="day ${j}">`;
+   cardDiv.innerHTML += `<h3 id="date ${j}">${days[j]} ${datetimes[j]}</h3>`; //TODO day indication
+   cardDiv.innerHTML += `<img id="logo${j}" src="https://www.weatherbit.io/static/img/icons/${weatherIcons[j]}.png" alt="weather-icon">`;
+   cardDiv.innerHTML += `<h4 id="description ${j}">${weatherDescriptions[j]}</h4>`;
+   cardDiv.innerHTML += `<h4 id="temperature ${j}">${dayTemperatures[j]}</h4>`;
+   cardDiv.innerHTML += `<h6> <span id="min-temp ${j}">${minTemperatures[j]}</span> <span id="max-temp ${j}">${maxTemperatures[j]}</span></h6>`;
+   // forecast.innerHTML += '</div>';
 }
 
 // TODO get dates
 function getForecastDates() {
-   const date = new Date();
+   const month = date.getMonth();
+   handleDaysOfTheWeek();
+   handleDayNumber();
+}
+
+function handleDaysOfTheWeek() {
    const dayRaw = date.getDay();
    let day = dayRaw;
    if (days.length < 6) {
       for (let k = 0; k < daysOfWeek.length ; k++) {
          if ((day+k) < daysOfWeek.length){
-            pushToArray(day+k);
+            pushToArray(days, daysOfWeek[day+k]);
          } else {
             day = 0;
             k = 0;
-            pushToArray(day+k);
+            pushToArray(days, daysOfWeek[day+k]);
          }
       }
    }
 }
+function handleDayNumber() {
+   const dayNumberRaw = date.getDate();
+   let dayNumber = dayNumberRaw;
 
-function pushToArray(index) {
-   days.push(daysOfWeek[index]);
 }
-// function getForecastDates (day, dayNumber, month, year) {
-
-
-//    const date = new Date();
-//    day = date.getDay();
-//    dayNumber = Number(date.getDate());
-//    month = date.getMonth();
-//    year = date.getFullYear();
-//    console.log(days[day],dayNumber, months[month],year);
-//    for (let i= 0; i<6 ; i++){
-//       if (days[day+i] == 'Saturday'){ 
-//          i=0;
-//          i++;
-//       } else if (months[month+i] == 'December'){
-//          i=0;
-//          i++;
-//       }
-//    }
-//    dates[i].innerHTML = `${days[day+i]} ${dayNumber+i} ${months[month+i]} ${year}`;
-
-// }
-
-// getForecastDates()
-
+function pushToArray(array, index) {
+   array.push(index);
+}
 

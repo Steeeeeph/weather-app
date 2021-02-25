@@ -1,0 +1,65 @@
+$iconHeightSmall: 50px;
+$iconHeightLarge: 200px;
+
+body {
+    background-color: gray;
+    font-family: helvetica, arial;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+
+    .container {
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: minmax(30px,1fr);
+        // grid-gap: 5px;
+
+        header {
+            grid-row: 1 ;
+            grid-column: 1 / -1;
+
+            h1 {
+
+                font-family: helvetica, arial;
+                font-weight: 300;
+                font-size: 30px;
+                text-align: center;
+                color: white;
+            }
+
+            form {
+                display: flex;
+                justify-content: center;
+            }
+        }
+        .weather {
+            grid-row: 2;
+            grid-column: 1 / -1;
+
+        }
+
+        .forecast {
+            grid-row: 3;
+            grid-column: 1 / -1;
+            display: flex;
+        }
+        .card {
+            flex-direction: row;
+            background-color: rgba(255, 255, 255, 0.8);
+            width: 20%;
+            padding: 10px;
+        }
+
+        #weather>img {
+            height: $iconHeightLarge;
+            width: $iconHeightLarge;
+            position: center;
+        }
+        .card>img {
+            height: $iconHeightSmall;
+            width: iconHeightSmall;
+            float: left;
+        }
+    }
+}
