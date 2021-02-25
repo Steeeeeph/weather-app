@@ -7,6 +7,7 @@ module.exports = {
     path: path.resolve(__dirname, 'public'),
   },
   mode: 'development',
+  watch: true,
   module: {
     rules: [
         {
