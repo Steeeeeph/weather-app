@@ -1,5 +1,5 @@
 "use strict";
-require("./style.css");
+// require("./style.css");
 
 const submit = document.getElementById("run");
 const cityInput = document.getElementById("city");
@@ -23,6 +23,7 @@ const daysOfWeek = [
    'Friday',
    'Saturday'
 ];
+const days = [];
 const months = [
    'January',
    'February',
@@ -45,8 +46,14 @@ submit.addEventListener("click", (event) => {
    title.innerText = ` ${city}`; // Adding city to title
 
    getWeather(city);
-   getDay(daysOfWeek);
+   if (days.length < 6) {
+
+      getForecastDates();
+   }
+   console.log(days);
+
 });
+
 
 // fetch the data from api
 function getWeather (city) {
@@ -85,10 +92,10 @@ function displayForecast (data) {
       forecasting(j);
    }
 }
-   
+
 function todaysWeather(i) {
    weather.innerHTML += `<div class="card" id="day ${i}">`;
-   weather.innerHTML += `<h3 id="date ${i}">Date ${i}</h3>`; //TODO day indication
+   weather.innerHTML += `<h3 id="date ${i}">${days[i]}</h3>`; //TODO day indication
    weather.innerHTML += `<img id="logo${i}" src="https://www.weatherbit.io/static/img/icons/${weatherIcons[i]}.png" alt="weather-icon">`;
    weather.innerHTML += `<h4 id="description ${i}">${weatherDescriptions[i]}</h4>`;
    weather.innerHTML += `<h4 id="temperature ${i}">${dayTemperatures[i]}</h4>`;
@@ -98,7 +105,7 @@ function todaysWeather(i) {
 
 function forecasting(j){
    forecast.innerHTML += `<div class="card" id="day ${j}">`;
-   forecast.innerHTML += `<h3 id="date ${j}">Date ${j}</h3>`; //TODO day indication
+   forecast.innerHTML += `<h3 id="date ${j}">${days[j]}</h3>`; //TODO day indication
    forecast.innerHTML += `<img id="logo${j}" src="https://www.weatherbit.io/static/img/icons/${weatherIcons[j]}.png" alt="weather-icon">`;
    forecast.innerHTML += `<h4 id="description ${j}">${weatherDescriptions[j]}</h4>`;
    forecast.innerHTML += `<h4 id="temperature ${j}">${dayTemperatures[j]}</h4>`;
@@ -107,25 +114,27 @@ function forecasting(j){
 }
 
 // TODO get dates
-function getDay(daysOfWeek) {
-   const days = [];
+function getForecastDates() {
    const date = new Date();
-   let day = date.getDay();
-   console.log(daysOfWeek[day]);
-   console.log(daysOfWeek.length);
-
-   for (let i= 0; i< daysOfWeek.length ; i++){
-      days.push(daysOfWeek[day+i]);
-
-      if (i=daysOfWeek.length){
-         i=0;
+   const dayRaw = date.getDay();
+   let day = dayRaw;
+   if (days.length < 6) {
+      for (let k = 0; k < daysOfWeek.length ; k++) {
+         if ((day+k) < daysOfWeek.length){
+            pushToArray(day+k);
+         } else {
+            day = 0;
+            k = 0;
+            pushToArray(day+k);
+         }
       }
-      // dates[i].innerHTML = `${daysOfWeek[day+i]}`;
-
    }
-   console.log(days);
 }
-// function getDates (day, dayNumber, month, year) {
+
+function pushToArray(index) {
+   days.push(daysOfWeek[index]);
+}
+// function getForecastDates (day, dayNumber, month, year) {
 
 
 //    const date = new Date();
@@ -147,6 +156,6 @@ function getDay(daysOfWeek) {
 
 // }
 
-// getDates()
+// getForecastDates()
 
 
