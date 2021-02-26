@@ -1,5 +1,7 @@
 $iconHeightSmall: 50px;
 $iconHeightLarge: 200px;
+$textColorToday: white;
+$textColorForecast: grey;
 
 body {
     background-color: gray;
@@ -14,6 +16,7 @@ body {
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: minmax(30px,1fr);
         // grid-gap: 5px;
+        color: $textColorToday;
 
         header {
             grid-row: 1 ;
@@ -25,7 +28,6 @@ body {
                 font-weight: 300;
                 font-size: 30px;
                 text-align: center;
-                color: white;
             }
 
             form {
@@ -40,10 +42,13 @@ body {
         }
 
         .forecast {
+            color: $textColorForecast;
+            text-align: center;
             grid-row: 3;
             grid-column: 1 / -1;
             display: flex;
         }
+        
         .card {
             flex-direction: row;
             background-color: rgba(255, 255, 255, 0.8);

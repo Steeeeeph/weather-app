@@ -1,6 +1,7 @@
 "use strict";
 // require("./style.css");
 import './style.scss';
+import { createApi } from "unsplash-js";
 // import img from './file.png';
 
 const submit = document.getElementById("run");
@@ -28,6 +29,7 @@ const daysOfWeek = [
 ];
 const days = [];
 const dayNumbers = [];
+const monthNumbers = [];
 const months = [
    'January',
    'February',
@@ -43,9 +45,22 @@ const months = [
    'December'
 ];
 
-const icons = [
-   
-]
+
+/*
+const unsplash = createApi({
+   accessKey:"UrsGm-KmBSCSn1BXyGEdpatCBTej2tCwOjQSzshx_vY",
+});
+
+function getbackgroundImage (city) {
+   unsplash.photos.get(city).then(response=> {
+      return response.json();
+   })
+   .then(data => {
+      console.log(data);
+   });
+} */
+
+
 
 submit.addEventListener("click", (event) => {
    event.preventDefault();
@@ -59,10 +74,25 @@ submit.addEventListener("click", (event) => {
       getForecastDates();
    }
    console.log(days);
+   // TODO 
+   getbackgroundImage(city);
 
 });
 
 
+function getbackgroundImage (city) {
+   const accessKey="UrsGm-KmBSCSn1BXyGEdpatCBTej2tCwOjQSzshx_vY";
+
+   const urlUnsplash = `https://api.unsplash.com/search/photos&query=${city}&client_id=${accessKey}`;
+
+   fetch(urlUnsplash)
+   .then(response=> {
+      return response.json();
+   })
+   .then(data => {
+      console.log(data);
+   });
+}
 // fetch the data from api
 function getWeather (city) {
       //  get api weather
@@ -75,10 +105,9 @@ function getWeather (city) {
          return response.json();
       })
       .then(data => {
-         // console.log(data);
          // displayWeather(data);
          displayForecast(data);
-      })
+      });
 }
 
 // get data to display today and next 5 days
@@ -94,6 +123,13 @@ function displayForecast (data) {
       maxTemperatures.push('&#8711;' + Math.floor(data.data[i].max_temp)+ '°C');
       dayTemperatures.push(Math.floor(data.data[i].temp)+ '°C');
    }
+   console.log(datetimes);
+   datetimes.forEach(datetime => {
+      let object = datetime.split('-');
+      dayNumbers.push(Number(object[2]));
+      monthNumbers.push(Number(object[1])-1);
+   });
+   console.log(typeof(monthNumbers[0]));
 
    todaysWeather(0);
 
@@ -105,7 +141,7 @@ function displayForecast (data) {
 function todaysWeather(i) {
    // weather.innerHTML += `<div class="card" id="day ${i}">`;
    weather.innerHTML += '<h3>Today</h3>';
-   weather.innerHTML += `<h3 id="date ${i}">${days[i]} ${datetimes[i]}</h3>`; //TODO day indication
+   weather.innerHTML += `<h3 id="date ${i}">${days[i]} ${dayNumbers[i]} ${months[monthNumbers[i]].substr(0, 3)}</h3>`; //TODO day indication
    weather.innerHTML += `<img id="logo${i}" src="https://www.weatherbit.io/static/img/icons/${weatherIcons[i]}.png" alt="weather-icon">`;
    weather.innerHTML += `<h4 id="description ${i}">${weatherDescriptions[i]}</h4>`;
    weather.innerHTML += `<h4 id="temperature ${i}">${dayTemperatures[i]}</h4>`;
@@ -118,7 +154,7 @@ function forecasting(j){
    cardDiv.classList.add('card');
    forecast.appendChild(cardDiv);
    // forecast.innerHTML += `<div class="card" id="day ${j}">`;
-   cardDiv.innerHTML += `<h3 id="date ${j}">${days[j]} ${datetimes[j]}</h3>`; //TODO day indication
+   cardDiv.innerHTML += `<h3 id="date ${j}">${days[j]} ${dayNumbers[j]} ${months[monthNumbers[j]].substr(0, 3)}</h3>`; //TODO day indication
    cardDiv.innerHTML += `<img id="logo${j}" src="https://www.weatherbit.io/static/img/icons/${weatherIcons[j]}.png" alt="weather-icon">`;
    cardDiv.innerHTML += `<h4 id="description ${j}">${weatherDescriptions[j]}</h4>`;
    cardDiv.innerHTML += `<h4 id="temperature ${j}">${dayTemperatures[j]}</h4>`;
@@ -128,7 +164,6 @@ function forecasting(j){
 
 // TODO get dates
 function getForecastDates() {
-   const month = date.getMonth();
    handleDaysOfTheWeek();
    handleDayNumber();
 }
